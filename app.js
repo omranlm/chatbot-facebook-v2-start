@@ -204,15 +204,7 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     switch (action) {
-        case "detailed-application":
-          
-            console.log("detailed-application is here");
-            }
-
-                
-
-            break;
-        default:
+         default:
             //unhandled action, just send back the text
             handleMessages(messages, sender);
     }
