@@ -205,15 +205,8 @@ function handleEcho(messageId, appId, metadata) {
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     switch (action) {
         case "detailed-application":
-            if (isDefined(contexts[0]) &&
-                contexts[0].name.includes('job-application') &&
-                contexts[0].parameters) {
-
-                let phone_number = (contexts[0].parameters.fields['phone-number'] && (contexts[0].parameters.fields['phone-number'] != '')) ?
-                    contexts[0].parameters.fields['phone-number'] : null ;
-
-
-                console.log("save phone_number " + phone_number);
+          
+            console.log("detailed-application is here");
             }
 
                 
