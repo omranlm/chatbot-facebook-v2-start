@@ -715,7 +715,7 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
-        case 'GET_STARTED':
+        case 'FACEBOOK_WELCOME':
              sendTextMessage(senderID, "Welcome to YES ME Chatbot, let\'s register you in the DHIS system");
             break;
         default:
