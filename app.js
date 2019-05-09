@@ -715,9 +715,12 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
+        case 'GET_STARTED'
+             sendTextMessage(senderID, "Welcome to YES ME Chatbot, let's register you in the DHIS system");
+            break;
         default:
             //unindentified payload
-            sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
+            sendTextMessage(senderID, payload + " paylod received.");
             break;
 
     }
