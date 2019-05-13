@@ -20,6 +20,10 @@ if (!config.FB_VERIFY_TOKEN) {
 if (!config.GOOGLE_PROJECT_ID) {
     throw new Error('missing GOOGLE_PROJECT_ID');
 }
+if (!config.YESME_DHIS_TOKEN) {
+    throw new Error('missing YESME_DHIS_TOKEN');
+}
+
 if (!config.DF_LANGUAGE_CODE) {
     throw new Error('missing DF_LANGUAGE_CODE');
 }
@@ -804,18 +808,23 @@ function greetUserText(userId) {
 
                 var options = {
                     method: 'GET',
-                    url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',
+                    url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',// TODO move to config file // ZUCUpa1ua3T is for PLan Asia
                     qs: { fields: 'id,name,children[id,name],parent[id,name]' },
                     headers:
                     {                        
-                        Authorization: 'Bearer 73b27a46-dae1-43f1-9296-b918cf2d9d76'
+                        Authorization: config.YESME_DHIS_TOKEN // TODO move to config file
                     }
                 };
 
                 request(options, function (error, response, body) {
-                    if (error) throw new Error(error);
+                    if (!error && response.statusCode == 200) {
+                        console.log(body);
+                    }
+                    else {
+                        console.log("Error " +  error + "\nbody =" + body);
+                    }
 
-                    console.log(body);
+                    
                 });
 
 
