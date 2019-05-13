@@ -843,6 +843,8 @@ function greetUserText(userId) {
                         };
                         replies.push(unit);
 
+                        console.log(replies);
+
                         sendQuickReply(userId, "Country", replies);
 
                     }
