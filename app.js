@@ -801,6 +801,22 @@ function greetUserText(userId) {
                 sendTextMessage(userId, "Welcome " + user.first_name + '! ' +
                     'This is YES ME chatbot and we can register you in our DHIS system ');
 
+
+                request({
+                    uri: 'https://yesme.plan-yes.online/yesme/api/26/organisationUnits/ZUCUpa1ua3T?fields=id,name,children[id,name],parent[id,name]'
+                }, function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+
+                        console.log('organisationUnits: ' + body);
+
+                    }
+                    else {
+                        // error 
+                        console.error(response.error);
+                    }
+
+                }
+                );
                 //send quick replies 
                 let replies = [
                     {
@@ -824,7 +840,7 @@ function greetUserText(userId) {
                         "payload": "My location is not listed"
                     }
                 ];
-                sendQuickReply(userId,"Country", replies);
+                sendQuickReply(userId, "Country", replies);
 
             } else {
                 console.log("Cannot get data for fb user with id",
