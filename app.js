@@ -819,6 +819,29 @@ function greetUserText(userId) {
                 request(options, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
                         console.log(body);
+
+                        
+                        let children = body.children;                       
+
+                        let replies = [];                        
+                        var i;
+                        for (i = 0; i < children.length; i++) {                           
+                            let unit = {
+                                "content_type": "text",
+                                "title": children[i].name,
+                                "payload": children[i]
+                            };
+                            replies.push(unit);
+                        }
+                        let unit = {
+                            "content_type": "text",
+                            "title": "My location is not list",
+                            "payload": "not_suuported_location"
+                        };
+                        replies.push(unit);
+
+                        sendQuickReply(userId, "Country", replies);
+
                     }
                     else {
                         console.log("Error " +  error + "\nbody =" + body);
@@ -829,29 +852,7 @@ function greetUserText(userId) {
 
 
                 //send quick replies 
-                let replies = [
-                    {
-                        "content_type": "text",
-                        "title": "Philippines",
-                        "payload": "Philipines"
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "Indonesia",
-                        "payload": "Indonesia"
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "Thailand",
-                        "payload": "Thailand"
-                    },
-                    {
-                        "content_type": "text",
-                        "title": "My location is not listed",
-                        "payload": "My location is not listed"
-                    }
-                ];
-                sendQuickReply(userId, "Country", replies);
+               
 
             } else {
                 console.log("Cannot get data for fb user with id",
