@@ -821,7 +821,7 @@ function greetUserText(userId) {
                         console.log(body);
 
                         
-                        let children = body.children;                       
+                        let children = JSON.parse(body.children);
 
                         let replies = [];                        
                         var i;
