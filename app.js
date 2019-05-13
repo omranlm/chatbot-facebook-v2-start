@@ -818,18 +818,18 @@ function greetUserText(userId) {
 
                 request(options, function (error, response, body) {
                     if (!error && response.statusCode == 200) {
-                        console.log(body);
 
+                        console.log(body);
                         
-                        let body = JSON.parse(body);
+                        let bodyObj = JSON.parse(body);
 
                         let replies = [];                        
                         
-                        for (i in body.children) {                           
+                        for (i in bodyObj.children) {                           
                             let unit = {
                                 "content_type": "text",
-                                "title": body.children[i].name,
-                                "payload": body.children[i].id
+                                "title": bodyObj.children[i].name,
+                                "payload": bodyObj.children[i].id
                             };
                             replies.push(unit);
                         }
