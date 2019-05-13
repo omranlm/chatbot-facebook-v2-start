@@ -807,9 +807,8 @@ function greetUserText(userId) {
                     url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',
                     qs: { fields: 'id,name,children[id,name],parent[id,name]' },
                     headers:
-                    {
-                        'Postman-Token': '83b8a7d0-11f9-4acb-b730-394d699c830c',
-                        'cache-control': 'no-cache'
+                    {                        
+                        Authorization: 'Bearer 73b27a46-dae1-43f1-9296-b918cf2d9d76'
                     }
                 };
 
@@ -818,6 +817,7 @@ function greetUserText(userId) {
 
                     console.log(body);
                 });
+
 
                 //send quick replies 
                 let replies = [
