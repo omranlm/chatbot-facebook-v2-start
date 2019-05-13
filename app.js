@@ -821,15 +821,15 @@ function greetUserText(userId) {
                         console.log(body);
 
                         
-                        let children = JSON.parse(body.children);
+                        let body = JSON.parse(body);
 
                         let replies = [];                        
-                        var i;
-                        for (i = 0; i < children.length; i++) {                           
+                        
+                        for (i in body.children) {                           
                             let unit = {
                                 "content_type": "text",
-                                "title": children[i].name,
-                                "payload": children[i]
+                                "title": body.children[i].name,
+                                "payload": body.children[i].id
                             };
                             replies.push(unit);
                         }
