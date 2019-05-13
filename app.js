@@ -825,7 +825,7 @@ function greetUserText(userId) {
 
                         let replies = [];                        
                         
-                        for (i in bodyObj.children) {                           
+                        for (var i in bodyObj.children) {                           
                             let unit = {
                                 "content_type": "text",
                                 "title": bodyObj.children[i].name,
