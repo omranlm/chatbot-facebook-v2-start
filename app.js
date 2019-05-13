@@ -802,21 +802,23 @@ function greetUserText(userId) {
                     'This is YES ME chatbot and we can register you in our DHIS system ');
 
 
-                request({
-                    uri: 'https://yesme.plan-yes.online/yesme/api/26/organisationUnits/ZUCUpa1ua3T?fields=id,name,children[id,name],parent[id,name]'
-                }, function (error, response, body) {
-                    if (!error && response.statusCode == 200) {
-
-                        console.log('organisationUnits: ' + body);
-
+                var options = {
+                    method: 'GET',
+                    url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',
+                    qs: { fields: 'id,name,children[id,name],parent[id,name]' },
+                    headers:
+                    {
+                        'Postman-Token': '83b8a7d0-11f9-4acb-b730-394d699c830c',
+                        'cache-control': 'no-cache'
                     }
-                    else {
-                        // error 
-                        console.error(response.error);
-                    }
+                };
 
-                }
-                );
+                request(options, function (error, response, body) {
+                    if (error) throw new Error(error);
+
+                    console.log(body);
+                });
+
                 //send quick replies 
                 let replies = [
                     {
