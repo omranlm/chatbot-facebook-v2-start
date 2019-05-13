@@ -824,7 +824,7 @@ function greetUserText(userId) {
                         "payload": "My location is not listed"
                     }
                 ];
-                sendQuickReply("Country", replies);
+                sendQuickReply(userId,"Country", replies);
 
             } else {
                 console.log("Cannot get data for fb user with id",
