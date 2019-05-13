@@ -809,9 +809,9 @@ function greetUserText(userId) {
                 var options = {
                     method: 'GET',
                     url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',// TODO move to config file // ZUCUpa1ua3T is for PLan Asia
-                    qs: { fields: 'id,name,children[id,name],parent[id,name]' },
+                    qs: { fields: 'id,name,children[id,name,children[id,name]],parent[id,name]' },
                     headers:
-                    {                        
+                    {
                         Authorization: config.YESME_DHIS_TOKEN // TODO move to config file
                     }
                 };
@@ -820,20 +820,23 @@ function greetUserText(userId) {
                     if (!error && response.statusCode == 200) {
 
                         console.log(body);
-                        
+
                         let bodyObj = JSON.parse(body);
 
-                        let replies = [];                        
-                        
-                        for (var i in bodyObj.children) {                           
-                            let unit = {
-                                "content_type": "text",
-                                "title": bodyObj.children[i].name,
-                                "payload": bodyObj.children[i].id
-                            };
-                            replies.push(unit);
+                        let replies = [];
+
+                        for (var i in bodyObj.children) {
+                            if (isDefined(bodyObj.children.children)) {
+                                var unit = {
+                                    "content_type": "text",
+                                    "title": bodyObj.children[i].name,
+                                    "payload": bodyObj.children[i].id
+                                };
+                                replies.push(unit);
+                            }
+
                         }
-                        let unit = {
+                        var unit = {
                             "content_type": "text",
                             "title": "My location is not list",
                             "payload": "not_suuported_location"
@@ -844,15 +847,15 @@ function greetUserText(userId) {
 
                     }
                     else {
-                        console.log("Error " +  error + "\nbody =" + body);
+                        console.log("Error " + error + "\nbody =" + body);
                     }
 
-                    
+
                 });
 
 
                 //send quick replies 
-               
+
 
             } else {
                 console.log("Cannot get data for fb user with id",
