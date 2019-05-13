@@ -184,7 +184,7 @@ function receivedMessage(event) {
 }
 
 
-function handleMessageAttachments(messageAttachments, senderID){
+function handleMessageAttachments(messageAttachments, senderID) {
     //for now just reply
     sendTextMessage(senderID, "Attachment received. Thank you.");
 }
@@ -204,7 +204,58 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     switch (action) {
-         default:
+        case "Action": // these are for the actions handling, it is a n exacmple for now
+
+            //if (isDefined(contexts[0])
+            //    && (contexts[0].name.includes('job_application') || contexts[0].name.includes('job-application-details_dialog_context'))
+            //    && contexts[0].parameters) {
+            //    //let phone_number = (isDefined(contexts[0].parameters.fields['phone-number'])
+            //    //    && contexts[0].parameters.fields['phone-number'] != '') ? contexts[0].parameters.fields['phone-number'].stringValue : '';
+            //    //let user_name = (isDefined(contexts[0].parameters.fields['user-name'])
+            //    //    && contexts[0].parameters.fields['user-name'] != '') ? contexts[0].parameters.fields['user-name'].stringValue : '';
+            //    //let previous_job = (isDefined(contexts[0].parameters.fields['previous-job'])
+            //    //    && contexts[0].parameters.fields['previous-job'] != '') ? contexts[0].parameters.fields['previous-job'].stringValue : '';
+            //    //let years_of_experience = (isDefined(contexts[0].parameters.fields['years-of-experience'])
+            //    //    && contexts[0].parameters.fields['years-of-experience'] != '') ? contexts[0].parameters.fields['years-of-experience'].stringValue : '';
+            //    //let job_vacancy = (isDefined(contexts[0].parameters.fields['job-vacancy'])
+            //    //    && contexts[0].parameters.fields['job-vacancy'] != '') ? contexts[0].parameters.fields['job-vacancy'].stringValue : '';
+
+            //    if (phone_number == '' && user_name != '' && previous_job != '' && years_of_experience == '') {
+
+            //            let replies = [
+            //                {
+            //                    "content_type": "text",
+            //                    "title": "Less than 1 year",
+            //                    "payload": "Less than 1 year"
+            //                },
+            //                {
+            //                    "content_type": "text",
+            //                    "title": "Less than 10 years",
+            //                    "payload": "Less than 10 years"
+            //                },
+            //                {
+            //                    "content_type": "text",
+            //                    "title": "More than 10 years",
+            //                    "payload": "More than 10 years"
+            //                }
+            //            ];
+            //            sendQuickReply(sender, messages[0].text.text[0], replies);
+            //        } else if (phone_number != '' && user_name != '' && previous_job != '' && years_of_experience != ''
+            //            && job_vacancy != '') {
+
+            //            let emailContent = 'A new job enquiery from ' + user_name + ' for the job: ' + job_vacancy +
+            //                '.<br> Previous job position: ' + previous_job + '.' +
+            //                '.<br> Years of experience: ' + years_of_experience + '.' +
+            //                '.<br> Phone number: ' + phone_number + '.';
+            //            sendEmail('New job application', emailContent);
+            //            handleMessages(messages, sender);
+            //        } else {
+            //            handleMessages(messages, sender);
+            //        }
+            //}
+            break;
+
+        default:
             //unhandled action, just send back the text
             handleMessages(messages, sender);
     }
@@ -223,11 +274,11 @@ function handleMessage(message, sender) {
             let replies = [];
             message.quickReplies.quickReplies.forEach((text) => {
                 let reply =
-                    {
-                        "content_type": "text",
-                        "title": text,
-                        "payload": text
-                    }
+                {
+                    "content_type": "text",
+                    "title": text,
+                    "payload": text
+                }
                 replies.push(reply);
             });
             sendQuickReply(sender, message.quickReplies.title, replies);
@@ -267,7 +318,7 @@ function handleCardMessages(messages, sender) {
 
         let element = {
             "title": message.card.title,
-            "image_url":message.card.imageUri,
+            "image_url": message.card.imageUri,
             "subtitle": message.card.subtitle,
             "buttons": buttons
         };
@@ -279,25 +330,25 @@ function handleCardMessages(messages, sender) {
 
 function handleMessages(messages, sender) {
     let timeoutInterval = 1100;
-    let previousType ;
+    let previousType;
     let cardTypes = [];
     let timeout = 0;
     for (var i = 0; i < messages.length; i++) {
 
-        if ( previousType == "card" && (messages[i].message != "card" || i == messages.length - 1)) {
+        if (previousType == "card" && (messages[i].message != "card" || i == messages.length - 1)) {
             timeout = (i - 1) * timeoutInterval;
             setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
             cardTypes = [];
             timeout = i * timeoutInterval;
             setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
-        } else if ( messages[i].message == "card" && i == messages.length - 1) {
+        } else if (messages[i].message == "card" && i == messages.length - 1) {
             cardTypes.push(messages[i]);
             timeout = (i - 1) * timeoutInterval;
             setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
             cardTypes = [];
-        } else if ( messages[i].message == "card") {
+        } else if (messages[i].message == "card") {
             cardTypes.push(messages[i]);
-        } else  {
+        } else {
 
             timeout = i * timeoutInterval;
             setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
@@ -538,7 +589,7 @@ function sendGenericMessage(recipientId, elements) {
 
 
 function sendReceiptMessage(recipientId, recipient_name, currency, payment_method,
-                            timestamp, elements, address, summary, adjustments) {
+    timestamp, elements, address, summary, adjustments) {
     // Generate a random receipt ID as the API requires a unique ID
     var receiptId = "order" + Math.floor(Math.random() * 1000);
 
@@ -579,7 +630,7 @@ function sendQuickReply(recipientId, text, replies, metadata) {
         },
         message: {
             text: text,
-            metadata: isDefined(metadata)?metadata:'',
+            metadata: isDefined(metadata) ? metadata : '',
             quick_replies: replies
         }
     };
@@ -748,7 +799,33 @@ function greetUserText(userId) {
                     user.first_name, user.last_name, user.profile_pic);
 
                 sendTextMessage(userId, "Welcome " + user.first_name + '! ' +
-                    'This is YES ME chatbot and we can register you in our DHIS system ' );
+                    'This is YES ME chatbot and we can register you in our DHIS system ');
+
+                //send quick replies 
+                let replies = [
+                    {
+                        "content_type": "text",
+                        "title": "Philippines",
+                        "payload": "Philipines"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Indonesia",
+                        "payload": "Indonesia"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Thailand",
+                        "payload": "Thailand"
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "My location is not listed",
+                        "payload": "My location is not listed"
+                    }
+                ];
+                sendQuickReply("Country", replies);
+
             } else {
                 console.log("Cannot get data for fb user with id",
                     userId);
