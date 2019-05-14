@@ -809,7 +809,7 @@ function greetUserText(userId) {
                 var options = {
                     method: 'GET',
                     url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',// TODO move to config file // ZUCUpa1ua3T is for PLan Asia
-                    qs: { fields: 'id,name,children[id,name],parent[id,name]'},
+                    qs: { fields: 'id,name,children[id,name],parent[id,name]' },
                     headers:
                     {
                         Authorization: config.YESME_DHIS_TOKEN // TODO move to config file
@@ -823,25 +823,23 @@ function greetUserText(userId) {
 
                         let bodyObj = JSON.parse(body);
 
-                        let replies = [];
-                        let j = 0;
-                        for (var i in bodyObj.children) {
-                            j++;
-                            if (j < 10 && isDefined(bodyObj.children[i].children)) {
-                                var unit = {
-                                    "content_type": "text",
-                                    "title": bodyObj.children[i].name,
-                                    "payload": bodyObj.children[i].id
-                                };
-                                replies.push(unit);
-                            }
-
-                        }
-                        unit = {
+                        let replies = [{
+                            "content_type": "text",
+                            "title": "Philipines",
+                            "payload": "Philipines"
+                        },
+                        {
+                            "content_type": "text",
+                            "title": "Indonesia",
+                            "payload": "Indonesia"
+                        },
+                        {
                             "content_type": "text",
                             "title": "My location is not list",
                             "payload": "not_suuported_location"
-                        };
+                        }
+                        ];
+
                         replies.push(unit);
 
                         console.log(replies);
