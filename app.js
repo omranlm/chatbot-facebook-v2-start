@@ -809,7 +809,7 @@ function greetUserText(userId) {
                 var options = {
                     method: 'GET',
                     url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/ZUCUpa1ua3T',// TODO move to config file // ZUCUpa1ua3T is for PLan Asia
-                    qs: { fields: 'id,name,children[id,name,children[id,name]],parent[id,name]' },
+                    qs: { fields: 'id,name,children[id,name],parent[id,name]' },
                     headers:
                     {
                         Authorization: config.YESME_DHIS_TOKEN // TODO move to config file
@@ -846,7 +846,7 @@ function greetUserText(userId) {
 
                         console.log(replies);
 
-                        sendQuickReply(userId, "Country", replies);
+                        sendQuickReply(userId, "Countries", replies);
 
                     }
                     else {
