@@ -840,7 +840,7 @@ function greetUserText(userId) {
                         }
                         ];
 
-                        replies.push(unit);
+                       
 
                         console.log(replies);
 
