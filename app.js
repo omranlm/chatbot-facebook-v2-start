@@ -824,10 +824,10 @@ function greetUserText(userId) {
                         let bodyObj = JSON.parse(body);
 
                         let replies = [];
-
+                        let j = 0;
                         for (var i in bodyObj.children) {
-                            
-                            if (i < 10 && isDefined(bodyObj.children[i].children) && bodyObj.children[i].children.length >0 ) {
+                            j++;
+                            if (j < 10 && isDefined(bodyObj.children[i].children) && bodyObj.children[i].children.length >0 ) {
                                 var unit = {
                                     "content_type": "text",
                                     "title": bodyObj.children[i].name,
