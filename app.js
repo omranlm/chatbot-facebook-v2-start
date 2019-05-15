@@ -209,15 +209,10 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
     if (temp == 'CODE_') {
         payload = 'CODE';
-
-        orgUnit = payload.substring(5, 16);
-        console.log('level selected code = ' + orgUnit);
-        console.log('payload.substring(5, 16) ' + payload.substring(5, 16));
+       
     }
     else if (temp == 'MORE_') {
         payload = 'MORE';
-        orgUnit = payload.substring(5, 16);
-        console.log('level selected code = ' + orgUnit);
     }
 
     console.log("Quick reply for message %s with originalPayload %s", messageId, originalPayload);
@@ -249,6 +244,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
             break;
         default:
+
             sendToDialogFlow(senderID, originalPayload);
             break;
 
