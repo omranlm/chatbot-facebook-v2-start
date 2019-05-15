@@ -196,10 +196,55 @@ function handleMessageAttachments(messageAttachments, senderID) {
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
-    var quickReplyPayload = quickReply.payload;
+    var payload = quickReply.payload;
+
+    var originalPayload = payload;
+    var code = "";
+    //
+    if (payload.substring(0, 5) == "CODE_") {
+        payload = "CODE";
+        code = payload.substring(5, 11);
+
+    }
+    else if (payload.substring(0, 5) == "MORE_") {
+        payload = "MORE";
+        code = payload.substring(5, 11);
+
+    }
+    switch (payload) {
+        
+        case 'CODE':
+            // country selected 
+            console.log("level selected code= " + code);
+
+
+            // get the code 
+            // add it to the DB and reset the more option to 1
+
+            // ask for the lower level
+
+            break;
+
+        case 'MORE':
+            // increate the DB value by 1
+            // country selected 
+            console.log("level selected code= " + code);
+
+            // get the country code code and ask for lower level
+
+            break;
+        case 'NOT_LISTED':
+            // Go out
+
+            break;
+        default:
+            sendToDialogFlow(senderID, quickReplyPayload);
+            break;
+
+    }
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
     //send payload to api.ai
-    sendToDialogFlow(senderID, quickReplyPayload);
+    
 }
 
 //https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-echo
@@ -790,19 +835,7 @@ function receivedPostback(event) {
     // The 'payload' param is a developer-defined field which is set in a postback
     // button for Structured Messages.
     var payload = event.postback.payload;
-    var originalPayload = payload;
-    var code = "";
-    //
-    if (payload.substring(0, 5) == "CODE_") {
-        payload = "CODE";
-        code = payload.substring(5, 11);
-
-    }
-    else if (payload.substring(0, 5) == "MORE_") {
-        payload = "MORE";
-        code = payload.substring(5, 11);
-
-    }
+   
 
 
     switch (payload) {
