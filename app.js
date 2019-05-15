@@ -222,9 +222,83 @@ function handleQuickReply(senderID, quickReply, messageId) {
         case 'CODE':
             // country selected 
             console.log("CODE level selected code = " + orgUnit);
-
-
             // get the code 
+
+            // check if its the lowest level
+
+            var options = {
+                method: 'GET',
+                url: 'https://yesme.plan-yes.online/yesme/api/organisationUnits/' + orgUnit,
+                qs: { fields: 'id,name,children[id,name],parent[id,name]' },
+                headers:
+                {
+                    Authorization: config.YESME_DHIS_TOKEN // TODO move to config file
+                }
+            };
+
+            request(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+
+                    console.log(body);
+
+                    let bodyObj = JSON.parse(body);
+
+                    if (Object.keys(bodyObj.children).length == 0) {
+                        //
+                        console.log("this is the lowest organization level");
+                        sendTextMessage(senderID, "Congrats, your organization unit has been defined, type let's start now to register");
+
+                    }
+
+                    let replies = [];
+                    let i = 0;
+                    bodyObj.children.forEach((text) => {
+
+                        if (i < 9) {
+                            let reply =
+                            {
+                                "content_type": "text",
+                                "title": text.name + " " + i,
+                                "payload": "CODE_" + text.id
+                            }
+                            replies.push(reply);
+                            i = i + 1;
+                        }
+
+                    });
+
+                    if (Object.keys(bodyObj.children).length > 9) {
+                        let reply =
+                        {
+                            "content_type": "text",
+                            "title": "Show more",
+                            "payload": "MORE_" + orgUnit
+                        }
+                        replies.push(reply);
+                    }
+
+                    let reply =
+                    {
+                        "content_type": "text",
+                        "title": "Not listed",
+                        "payload": "NOT_LISTED"
+                    }
+                    replies.push(reply);
+
+                    console.log(replies);
+
+                    // TODO save new organization unit to DB
+
+                    sendQuickReply(userId, "Where exactly?", replies);
+
+                }
+                else {
+                    console.log("Error " + error + "\nbody =" + body);
+                }
+
+
+            });
+
             // add it to the DB and reset the more option to 1
 
             // ask for the lower level
