@@ -202,13 +202,14 @@ function handleQuickReply(senderID, quickReply, messageId) {
     var originalPayload = payload;
     var code = "";
     //
-    console.log("payload.substring(0, 5) "+ payload.substring(0, 5));
-    if (payload.substring(0, 5) == "CODE_") {
+    console.log("payload.substring(0, 5) " + payload.substring(0, 5));
+    let temp = payload.substring(0, 5);
+    if (temp == "CODE_") {
         payload = "CODE";
         code = payload.substring(5, 11);
 
     }
-    else if (payload.substring(0, 5) == "MORE_") {
+    else if (temp == "MORE_") {
         payload = "MORE";
         code = payload.substring(5, 11);
 
