@@ -210,13 +210,13 @@ function handleQuickReply(senderID, quickReply, messageId) {
     if (temp == 'CODE_') {
         payload = 'CODE';
 
-        //orgUnit = payload.substring(5, 16);
+        orgUnit = payload.substring(5, 16);
         console.log('level selected code = ' + orgUnit);
         console.log('payload.substring(5, 16) ' + payload.substring(5, 16));
     }
     else if (temp == 'MORE_') {
         payload = 'MORE';
-        //orgUnit = payload.substring(5, 16);
+        orgUnit = payload.substring(5, 16);
         console.log('level selected code = ' + orgUnit);
     }
 
