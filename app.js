@@ -196,20 +196,22 @@ function handleMessageAttachments(messageAttachments, senderID) {
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
-    var payload = quickReply.payload;
+    let payload = quickReply.payload;
 
 
     var originalPayload = payload;
-    var code = "";
+    let code = "";
     //
     console.log("payload.substring(0, 5) " + payload.substring(0, 5));
+    console.log("payload.substring(5, 11) " + payload.substring(5, 11));
+    
     let temp = payload.substring(0, 5);
-    if (temp == "CODE_") {
+    if (temp == 'CODE_') {
         payload = "CODE";
         code = payload.substring(5, 11);
 
     }
-    else if (temp == "MORE_") {
+    else if (temp == 'MORE_') {
         payload = "MORE";
         code = payload.substring(5, 11);
 
