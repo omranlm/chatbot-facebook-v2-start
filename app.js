@@ -200,22 +200,23 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
 
     var originalPayload = payload;
-    let org_unit = "";
+    let orgUnit = '';
     //
     console.log("payload.substring(0, 5) " + payload.substring(0, 5));
     console.log("payload.substring(5, 16) " + payload.substring(5, 16));
     
     let temp = payload.substring(0, 5);
-    if (temp == "CODE_") {
-        payload = "CODE";
-        org_unit = payload.substring(5, 16);
-        console.log("level selected code = " + org_unit);
+    if (temp == 'CODE_') {
+        payload = 'CODE';
+        orgUnit = payload.substring(5, 16);
+        console.log('level selected code = ' + orgUnit);
+        console.log('payload.substring(5, 16) ' + payload.substring(5, 16));
 
     }
-    else if (temp == "MORE_") {
-        payload = "MORE";
-        org_unit = payload.substring(5, 16);
-        console.log("level selected code = " + org_unit);
+    else if (temp == 'MORE_') {
+        payload = 'MORE';
+        orgUnit = payload.substring(5, 16);
+        console.log('level selected code = ' + orgUnit);
     }
 
     console.log("Quick reply for message %s with originalPayload %s", messageId, originalPayload);
@@ -224,7 +225,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
         
         case 'CODE':
             // country selected 
-            console.log("CODE level selected code = " + org_unit);
+            console.log("CODE level selected code = " + orgUnit);
 
 
             // get the code 
@@ -237,7 +238,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
         case 'MORE':
             // increate the DB value by 1
             // country selected 
-            console.log("MORE level selected code= " + org_unit);
+            console.log("MORE level selected code= " + orgUnit);
 
             // get the country code code and ask for lower level
 
