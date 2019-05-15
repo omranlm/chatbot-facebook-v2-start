@@ -289,7 +289,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
                     // TODO save new organization unit to DB
 
-                    sendQuickReply(userId, "Where exactly?", replies);
+                    sendQuickReply(senderID, "Where exactly?", replies);
 
                 }
                 else {
