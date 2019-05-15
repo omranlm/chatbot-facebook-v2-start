@@ -198,6 +198,7 @@ function handleMessageAttachments(messageAttachments, senderID) {
 function handleQuickReply(senderID, quickReply, messageId) {
     var payload = quickReply.payload;
 
+
     var originalPayload = payload;
     var code = "";
     //
@@ -211,6 +212,9 @@ function handleQuickReply(senderID, quickReply, messageId) {
         code = payload.substring(5, 11);
 
     }
+
+    console.log("Quick reply for message %s with originalPayload %s", messageId, originalPayload);
+
     switch (payload) {
         
         case 'CODE':
@@ -238,11 +242,11 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
             break;
         default:
-            sendToDialogFlow(senderID, quickReplyPayload);
+            sendToDialogFlow(senderID, originalPayload);
             break;
 
     }
-    console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
+   
     //send payload to api.ai
     
 }
