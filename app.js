@@ -259,7 +259,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
                                 let reply =
                                 {
                                     "content_type": "text",
-                                    "title": text.name + " " + i,
+                                    "title": (i + 1) + " " + text.name,
                                     "payload": "CODE_" + text.id
                                 }
                                 replies.push(reply);
@@ -1043,7 +1043,7 @@ function greetUserText(userId) {
                                 let reply =
                                 {
                                     "content_type": "text",
-                                    "title": text.name + " " + i,
+                                    "title": (i + 1) + " " + text.name,
                                     "payload": "CODE_" + text.id
                                 }
                                 replies.push(reply);
