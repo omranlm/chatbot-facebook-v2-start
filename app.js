@@ -879,7 +879,7 @@ function greetUserText(userId) {
 
                                 if (result.rows.length === 0) {//insert if not already found
                                     let sql = 'INSERT INTO users (fb_id, first_name, last_name,org_unit,more) ' +
-                                        'VALUES ($1, $2, $3)';
+                                        'VALUES ($1, $2, $3,$4,$5)';
                                     client.query(sql,
                                         [
                                             userId,
