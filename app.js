@@ -644,6 +644,26 @@ function sendQuickReply(recipientId, text, replies, metadata) {
     callSendAPI(messageData);
 }
 
+/**
+ * 
+ * send message with template
+ */
+function sendtemplate(recipientId, template) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            "attachment": {
+                "type": "template",
+                "payload": template
+            }
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
 /*
  * Send a read receipt to indicate the message has been read
  *
@@ -818,7 +838,7 @@ function greetUserText(userId) {
                                 console.log('Query error: ' + err);
                             } else {
 
-                                if (result.rows.length === 0) {
+                                if (result.rows.length === 0) {//insert if not already found
                                     let sql = 'INSERT INTO users (fb_id, first_name, last_name) ' +
                                         'VALUES ($1, $2, $3)';
                                     client.query(sql,
@@ -857,24 +877,25 @@ function greetUserText(userId) {
 
                         let bodyObj = JSON.parse(body);
 
-                        let replies = [{
-                            "content_type": "text",
-                            "title": "Philipines",
-                            "payload": "Philipines"
-                        },
-                        {
-                            "content_type": "text",
-                            "title": "Indonesia",
-                            "payload": "Indonesia"
-                        },
-                        {
-                            "content_type": "text",
-                            "title": "My location is not list",
-                            "payload": "not_suuported_location"
-                        }
-                        ];
 
-                       
+                        let replies = [];
+                        let i = 0;
+                        bodyObj.children.forEach((text) => {
+
+                            if (i < 10) {
+                                let reply =
+                                {
+                                    "content_type": "text",
+                                    "title": text + " "+ i,
+                                    "payload": text
+                                }
+                                replies.push(reply);
+
+                                i = i + 1;
+                            }
+
+                        });
+
 
                         console.log(replies);
 
