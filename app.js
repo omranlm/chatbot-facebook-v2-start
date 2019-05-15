@@ -200,7 +200,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
 
     var originalPayload = payload;
-    let orgUnit = '';
+    var orgUnit = '';
     //
     console.log("payload.substring(0, 5) " + payload.substring(0, 5));
     console.log("payload.substring(5, 16) " + payload.substring(5, 16));
