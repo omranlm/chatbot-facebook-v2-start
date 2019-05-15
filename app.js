@@ -790,10 +790,49 @@ function receivedPostback(event) {
     // The 'payload' param is a developer-defined field which is set in a postback
     // button for Structured Messages.
     var payload = event.postback.payload;
+    var originalPayload = payload;
+    var code = "";
+    //
+    if (payload.substring(0, 5) == "CODE_") {
+        payload = "CODE";
+        code = payload.substring(5, 11);
+
+    }
+    else if (payload.substring(0, 5) == "MORE_") {
+        payload = "MORE";
+        code = payload.substring(5, 11);
+
+    }
+
 
     switch (payload) {
         case 'FACEBOOK_WELCOME':
             greetUserText(senderID);
+            break;
+
+        case 'CODE':
+            // country selected 
+            console.log("level selected code= " + code);
+
+
+            // get the code 
+            // add it to the DB and reset the more option to 1
+            
+            // ask for the lower level
+
+            break;
+
+        case 'MORE':
+            // increate the DB value by 1
+            // country selected 
+            console.log("level selected code= " + code);
+
+            // get the country code code and ask for lower level
+
+            break;
+        case 'NOT_LISTED':
+            // Go out
+
             break;
         default:
             //unindentified payload
@@ -839,13 +878,15 @@ function greetUserText(userId) {
                             } else {
 
                                 if (result.rows.length === 0) {//insert if not already found
-                                    let sql = 'INSERT INTO users (fb_id, first_name, last_name) ' +
+                                    let sql = 'INSERT INTO users (fb_id, first_name, last_name,org_unit,more) ' +
                                         'VALUES ($1, $2, $3)';
                                     client.query(sql,
                                         [
                                             userId,
                                             user.first_name,
                                             user.last_name,
+                                            "ZUCUpa1ua3T",
+                                            1
                                         ]);
                                 }
                             }
@@ -882,20 +923,36 @@ function greetUserText(userId) {
                         let i = 0;
                         bodyObj.children.forEach((text) => {
 
-                            if (i < 10) {
+                            if (i < 9) {
                                 let reply =
                                 {
                                     "content_type": "text",
-                                    "title": text.name + " "+ i,
-                                    "payload": text.id
+                                    "title": text.name + " " + i,
+                                    "payload": "CODE_" + text.id
                                 }
                                 replies.push(reply);
-
                                 i = i + 1;
                             }
 
                         });
 
+                        if (Object.keys(bodyObj.children).length > 9) {
+                            let reply =
+                            {
+                                "content_type": "text",
+                                "title": "Show more",
+                                "payload": "MORE_ZUCUpa1ua3T"
+                            }
+                            replies.push(reply);
+                        }
+
+                        let reply =
+                        {
+                            "content_type": "text",
+                            "title": "Not listed",
+                            "payload": "NOT_LISTED"
+                        }
+                        replies.push(reply);
 
                         console.log(replies);
 
