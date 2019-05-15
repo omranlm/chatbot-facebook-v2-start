@@ -200,20 +200,20 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
 
     var originalPayload = payload;
-    let code = "";
+    let org_unit = "";
     //
     console.log("payload.substring(0, 5) " + payload.substring(0, 5));
-    console.log("payload.substring(5, 11) " + payload.substring(5, 11));
+    console.log("payload.substring(5, 16) " + payload.substring(5, 16));
     
     let temp = payload.substring(0, 5);
     if (temp == 'CODE_') {
         payload = "CODE";
-        code = payload.substring(5, 11);
+        org_unit = payload.substring(5, 16);
 
     }
     else if (temp == 'MORE_') {
         payload = "MORE";
-        code = payload.substring(5, 11);
+        org_unit = payload.substring(5, 16);
 
     }
 
@@ -223,7 +223,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
         
         case 'CODE':
             // country selected 
-            console.log("level selected code= " + code);
+            console.log("level selected code = " + org_unit);
 
 
             // get the code 
