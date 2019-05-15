@@ -203,13 +203,13 @@ function handleQuickReply(senderID, quickReply, messageId) {
     //
     console.log("payload.substring(0, 5) " + payload.substring(0, 5));
     console.log("payload.substring(5, 16) " + payload.substring(5, 16));
-    
+
     let temp = originalPayload.substring(0, 5);
     let orgUnit = originalPayload.substring(5, 16);
 
     if (temp == 'CODE_') {
         payload = 'CODE';
-       
+
     }
     else if (temp == 'MORE_') {
         payload = 'MORE';
@@ -218,7 +218,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
     console.log("Quick reply for message %s with originalPayload %s", messageId, originalPayload);
 
     switch (payload) {
-        
+
         case 'CODE':
             // country selected 
             console.log("CODE level selected code = " + orgUnit);
@@ -249,47 +249,49 @@ function handleQuickReply(senderID, quickReply, messageId) {
                         sendTextMessage(senderID, "Congrats, your organization unit has been defined, type let's start now to register");
 
                     }
+                    else {
 
-                    let replies = [];
-                    let i = 0;
-                    bodyObj.children.forEach((text) => {
+                        let replies = [];
+                        let i = 0;
+                        bodyObj.children.forEach((text) => {
 
-                        if (i < 9) {
+                            if (i < 9) {
+                                let reply =
+                                {
+                                    "content_type": "text",
+                                    "title": text.name + " " + i,
+                                    "payload": "CODE_" + text.id
+                                }
+                                replies.push(reply);
+                                i = i + 1;
+                            }
+
+                        });
+
+                        if (Object.keys(bodyObj.children).length > 9) {
                             let reply =
                             {
                                 "content_type": "text",
-                                "title": text.name + " " + i,
-                                "payload": "CODE_" + text.id
+                                "title": "Show more",
+                                "payload": "MORE_" + orgUnit
                             }
                             replies.push(reply);
-                            i = i + 1;
                         }
 
-                    });
-
-                    if (Object.keys(bodyObj.children).length > 9) {
                         let reply =
                         {
                             "content_type": "text",
-                            "title": "Show more",
-                            "payload": "MORE_" + orgUnit
+                            "title": "Not listed",
+                            "payload": "NOT_LISTED"
                         }
                         replies.push(reply);
+
+                        console.log(replies);
+
+                        // TODO save new organization unit to DB
+
+                        sendQuickReply(senderID, "Where exactly?", replies);
                     }
-
-                    let reply =
-                    {
-                        "content_type": "text",
-                        "title": "Not listed",
-                        "payload": "NOT_LISTED"
-                    }
-                    replies.push(reply);
-
-                    console.log(replies);
-
-                    // TODO save new organization unit to DB
-
-                    sendQuickReply(senderID, "Where exactly?", replies);
 
                 }
                 else {
@@ -323,9 +325,9 @@ function handleQuickReply(senderID, quickReply, messageId) {
             break;
 
     }
-   
+
     //send payload to api.ai
-    
+
 }
 
 //https://developers.facebook.com/docs/messenger-platform/webhook-reference/message-echo
@@ -916,7 +918,7 @@ function receivedPostback(event) {
     // The 'payload' param is a developer-defined field which is set in a postback
     // button for Structured Messages.
     var payload = event.postback.payload;
-   
+
 
 
     switch (payload) {
@@ -931,7 +933,7 @@ function receivedPostback(event) {
 
             // get the code 
             // add it to the DB and reset the more option to 1
-            
+
             // ask for the lower level
 
             break;
