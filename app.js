@@ -886,8 +886,8 @@ function greetUserText(userId) {
                                 let reply =
                                 {
                                     "content_type": "text",
-                                    "title": text + " "+ i,
-                                    "payload": text
+                                    "title": text.name + " "+ i,
+                                    "payload": text.id
                                 }
                                 replies.push(reply);
 
