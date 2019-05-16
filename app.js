@@ -1018,45 +1018,47 @@ function greetUserText(userId) {
                     'This is YES ME chatbot and we can register you in our DHIS system ');
 
 
-                let children = db.getOrgUnitChildern('ZUCUpa1ua3T');
-                let replies = [];
+                db.getOrgUnitChildern('ZUCUpa1ua3T', (children) => {
+                    let replies = [];
 
-                console.log('getOrgUnitChildern of ZUCUpa1ua3T'+  +'\n' + children);
-                children.forEach((text) => {
+                    console.log('getOrgUnitChildern of ZUCUpa1ua3T' + +'\n' + children);
+                    children.forEach((text) => {
 
-                    if (i < 9) {
+                        if (i < 9) {
+                            let reply =
+                            {
+                                "content_type": "text",
+                                "title": (i + 1) + " " + text.name,
+                                "payload": "CODE_" + text.id
+                            }
+                            replies.push(reply);
+                            i = i + 1;
+                        }
+
+                    });
+                    if (Object.keys(children).length > 9) {
                         let reply =
                         {
                             "content_type": "text",
-                            "title": (i + 1) + " " + text.name,
-                            "payload": "CODE_" + text.id
+                            "title": "Show more",
+                            "payload": "MORE_ZUCUpa1ua3T"
                         }
                         replies.push(reply);
-                        i = i + 1;
                     }
 
-                });
-                if (Object.keys(children).length > 9) {
                     let reply =
                     {
                         "content_type": "text",
-                        "title": "Show more",
-                        "payload": "MORE_ZUCUpa1ua3T"
+                        "title": "Not listed",
+                        "payload": "NOT_LISTED"
                     }
                     replies.push(reply);
-                }
 
-                let reply =
-                {
-                    "content_type": "text",
-                    "title": "Not listed",
-                    "payload": "NOT_LISTED"
-                }
-                replies.push(reply);
+                    console.log(replies);
 
-                console.log(replies);
+                    sendQuickReply(userId, "Countries", replies);
+                });
 
-                sendQuickReply(userId, "Countries", replies);
 
                 //var options = {
                 //    method: 'GET',
