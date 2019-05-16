@@ -17,7 +17,7 @@ function getOrgUnitChildern(orgUnit) {
                     console.log('Query error: ' + err);
                 } else {
 
-                    return result.rows;
+                    return JSON.parse(result.rows);;
                 }
             });
 
