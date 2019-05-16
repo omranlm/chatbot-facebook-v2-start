@@ -1020,6 +1020,8 @@ function greetUserText(userId) {
 
                 let children = db.getOrgUnitChildern('ZUCUpa1ua3T');
                 let replies = [];
+
+                console.log('getOrgUnitChildern of ZUCUpa1ua3T'+  +'\n' +children);
                 children.forEach((text) => {
 
                     if (i < 9) {
