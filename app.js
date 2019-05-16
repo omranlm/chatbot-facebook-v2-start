@@ -1018,7 +1018,7 @@ function greetUserText(userId) {
                     'This is YES ME chatbot and we can register you in our DHIS system ');
 
 
-                let children = db.getOrgUnitChilder('ZUCUpa1ua3T');
+                let children = db.getOrgUnitChildern('ZUCUpa1ua3T');
                 let replies = [];
                 children.forEach((text) => {
 

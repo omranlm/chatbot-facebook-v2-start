@@ -3,7 +3,7 @@
 const pg = require('pg');
 
 
-function getOrgUnitChilder(orgUnit) {
+function getOrgUnitChildern(orgUnit) {
 
     var pool = new pg.Pool(config.PG_CONFIG);
     pool.connect(function (err, client, done) {
@@ -26,4 +26,4 @@ function getOrgUnitChilder(orgUnit) {
 
 }
 
-module.exports.getOrgUnitChilder = getOrgUnitChilder;
+module.exports.getOrgUnitChildern = getOrgUnitChildern;
